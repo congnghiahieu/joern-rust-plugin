@@ -10,12 +10,12 @@ lazy val schemaExtender = project.in(file("schema-extender"))
 
 dependsOn(domainClasses)
 libraryDependencies ++= Seq(
-  "io.shiftleft" %% "semanticcpg" % Versions.cpg,
-  "io.shiftleft" %% "fuzzyc2cpg-tests" % Versions.cpg % Test classifier "tests",
-  "org.scalatest" %% "scalatest" % "3.1.1" % Test,
+  // "io.shiftleft" %% "semanticcpg" % Versions.cpg,
+  // "io.shiftleft" %% """|fuzzyc2cpg-tests""".stripMargin % Versions.cpg % Test classifier "tests"
+  // "org.scalatest" %% "scalatest" % "3.1.1" % Test,
 
   // The eclipse.jgit dependency is specific to this example
-  "org.eclipse.jgit" % "org.eclipse.jgit" % "5.7.0.202003110725-r"
+  // "org.eclipse.jgit" % "org.eclipse.jgit" % "5.7.0.202003110725-r"
 )
 
 // We exclude a few jars that the main joern distribution already includes
@@ -29,7 +29,7 @@ Universal / mappings := (Universal / mappings).value.filterNot {
     path.contains("com.lihaoyi.u") ||
     path.contains("io.shiftleft") ||
     path.contains("org.typelevel") ||
-    path.contains("io.undertow") ||    
+    path.contains("io.undertow") ||
     path.contains("org.json4s") ||
     path.contains("com.chuusai") ||
     path.contains("io.get-coursier") ||
