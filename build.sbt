@@ -1,6 +1,6 @@
 name := "joern-sample-extension"
-ThisBuild/organization := "io.joern"
-ThisBuild/scalaVersion := "2.13.4"
+ThisBuild / organization := "io.joern"
+ThisBuild / scalaVersion := "3.4.3"
 
 enablePlugins(JavaAppPackaging)
 
@@ -20,7 +20,8 @@ libraryDependencies ++= Seq(
 
 // We exclude a few jars that the main joern distribution already includes
 Universal / mappings := (Universal / mappings).value.filterNot {
-  case (_, path) => path.contains("org.scala") ||
+  case (_, path) =>
+    path.contains("org.scala") ||
     path.contains("net.sf.trove4") ||
     path.contains("com.google.guava") ||
     path.contains("org.apache.logging") ||
@@ -42,25 +43,34 @@ Universal / mappings := (Universal / mappings).value.filterNot {
     path.contains("io.joern.schema")
 }
 
-lazy val createDistribution = taskKey[Unit]("Create binary distribution of extension")
+lazy val createDistribution =
+  taskKey[Unit]("Create binary distribution of extension")
 createDistribution := {
-  val pkgBin = (Universal/packageBin).value
+  val pkgBin = (Universal / packageBin).value
   val dstArchive = file("./plugin.zip")
-  IO.copyFile(pkgBin, dstArchive,
-    CopyOptions(overwrite = true, preserveLastModified = true, preserveExecutable = true))
+  IO.copyFile(
+    pkgBin,
+    dstArchive,
+    CopyOptions(
+      overwrite = true,
+      preserveLastModified = true,
+      preserveExecutable = true
+    )
+  )
   println(s"created distribution - resulting files: $dstArchive")
 }
 
-ThisBuild/Compile/scalacOptions ++= Seq(
+ThisBuild / Compile / scalacOptions ++= Seq(
   "-feature",
   "-deprecation",
-  "-language:implicitConversions",
+  "-language:implicitConversions"
 )
 
-Global/onChangedBuildSource := ReloadOnSourceChanges
+Global / onChangedBuildSource := ReloadOnSourceChanges
 
-ThisBuild/resolvers ++= Seq(
+ThisBuild / resolvers ++= Seq(
   Resolver.mavenLocal,
-  "Sonatype OSS" at "https://oss.sonatype.org/content/repositories/public")
+  "Sonatype OSS" at "https://oss.sonatype.org/content/repositories/public"
+)
 
 maintainer := "michael@shiftleft.io"

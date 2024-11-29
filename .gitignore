@@ -1,3 +1,7 @@
-/.bsp
-/plugin.zip
+.bsp
+.metals
+.vscode
+
+*.zip
 /joern-inst
+target
